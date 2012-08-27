@@ -8,11 +8,25 @@ tash.events.require( 'camerapi.grabbed');
 camerapi.pages.homepage = {
     init: function() {
         var grabber = document.querySelector( '#grabber' ),
+            cameraButtonEl = $('.camera-button button'),
             image = new Image(),
             canvas = document.querySelector( '#picture2' ),
             ctx = canvas.getContext( "2d" ),
-            imageContainerEl = document.querySelector( '#container .result' ),
+            imageContainerEl = $( '#container .result' ),
             filters;
+
+        cameraButtonEl.click( function() {
+            $(grabber).trigger('click');
+        });
+
+        camerapi.grabbed.subscribe( function() {
+            //hide the button
+            $('#shot-view').hide();
+            //show result view
+            imageContainerEl.show();
+            $('.options', imageContainerEl).slideDown();
+
+        });
 
         grabber.addEventListener( "change", function( evt ) {
             //console.log( "image taken" );
@@ -40,7 +54,6 @@ camerapi.pages.homepage = {
 
             camerapi.utils.convertToURL( file, urlConverted );
 
-            imageContainerEl.style.display = 'block';
         });
 
         $('.saveme').click( function(){

@@ -35,37 +35,86 @@
 
         h1 {
             color: #eee;
-            font-size: 2em;
+            font-size: 1.5em;
             text-align: center;
             text-shadow: 2px 3px rgba(120,120,120, 0.5);
             margin: 0;
             text-transform: uppercase;
+            line-height: 60px;
+        }
+
+        @media screen and (min-width:321px) {
+            h1 {
+                font-size: 2em;
+            }
+        }
+
+        h1:before {
+            content:'';
+            display: inline-block;
+            background: url('images/camera-eye.png') top left no-repeat;
+            width: 110px;
+            height: 110px;
+            background-size: 45px 45px;
+            position: absolute;
+            top: 7px;
+            left: 10px;
         }
 
         header {
             background-color: #000;
+            background: url('images/bg-header.png') left top repeat-x;
             box-shadow: 0px 6px 4px rgba(20, 20, 20, 0.75);
 
             position: absolute;
             width: 100%;
-            height: 53px;
+            height: 60px;
         }
+
+
 
         #container {
             width: 100%;
-            position: relative;
-
             position: absolute;
-            top: 73px;
+            top: 61px;
+            bottom: 0;
             overflow: auto;
+        }
+
+        #container p.incipit {
+            color: #eee;
+            font-family: Anton,Arial, sans-serif;
+            font-weight: 100;
+            font-size: 1em;
+            text-align: center;
+            text-shadow: 2px 2px rgba(10,10,10, 1);
         }
 
         #container .input {
             position: relative;
-            width: 220px;
+            width: 100%;
             margin: 0 auto;
         }
 
+        .camera-button {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .camera-button button {
+            background: url('images/camera.png') top left no-repeat;
+            display: block;
+            font-size: 0;
+            width: 293px;
+            height: 295px;
+            border: none;
+            margin: 0 auto;
+            cursor: pointer;
+        }
+
+        /*
         .input .fake {
             position: absolute;
             top: 0;
@@ -83,8 +132,9 @@
             text-decoration: none;
             text-transform: uppercase;
         }
-
-        .css3button {
+        */
+        .css3button,
+        .result .options a {
             font-family: Arial;
             font-size: 0.5em;
             color: #ffffff;
@@ -105,10 +155,10 @@
             display: block;
             margin: 1em auto;
 
-            position: relative;
+            position: absolute;
             text-align: right;
             opacity: 0;
-            z-index: 2;
+            z-index: 0;
         }
         #container .result canvas {
             max-width: 90%;
@@ -121,6 +171,21 @@
         }
         .result {
             display: none;
+        }
+
+        .result .options {
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            color: white;
+            background: #111;
+            margin: 0 0 10px;
+            display: none;
+        }
+
+        .result .options a {
+            color: white;
+            text-decoration: none;
         }
 
         #filters {
@@ -169,28 +234,10 @@
         }
 
         .saveme {
-            background: -moz-linear-gradient(center top , #52DEAB, #0F451B) repeat scroll 0 0 transparent;
-            border-radius: 7px 7px 7px 7px;
-            border-top: 1px solid #75FF8A;
-            box-shadow: 0 1px 0 #000000;
-            color: white;
-            font-family: Helvetica,Arial,Sans-Serif;
-            font-size: 16px;
-            padding: 11px 22px;
-            text-decoration: none;
-            text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
-            vertical-align: middle;
-            display: block;
-            margin: 10px auto;
-        } 
+        }
         .saveme:hover {
-            border-top-color: #287a32;
-            background: #287a32;
-            color: #e6e6e6;
-        }       
+        }
         .saveme:active {
-            border-top-color: #12541a;
-            background: #12541a;
         }
         </style>
     </head>
@@ -203,16 +250,24 @@
 
         <div id='container' >
 
-            <div class='input'>
-                <input type="file" id="grabber" accept="image/*" />
-                <div class='fake'>
-                    <input />
-                    <a class='css3button' href="#">select</a>
+            <div id='shot-view'>
+                <p class='incipit'>
+                    Click/tap on the camera to take/upload a picture
+                </p>
+                <div class='input'>
+                    <input type="file" id="grabber" accept="image/*" />
+                    <div class='camera-button'>
+                        <button>Go</button>
+                    </div>
                 </div>
             </div>
             <div class='result' >
+                <div class='options'>
+                    <a href="#">take another shot!</a>
+                    <a href="#">restore picture</a>
+                    <a href="#" class='saveme'>save picture</a>
+                </div>
                 <canvas id="picture2" ></canvas>
-                <button class='saveme'>save me</button>
             </div>
         </div>
 
