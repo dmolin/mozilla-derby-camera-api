@@ -23,9 +23,10 @@ camerapi.pages.homepage = {
             //hide the button
             $('#shot-view').hide();
             //show result view
-            imageContainerEl.show();
-            $('.options', imageContainerEl).slideDown();
-
+            $('.options').slideDown( function() {
+                $('#container').css('top', $('header').height() + 'px');
+                imageContainerEl.show();
+            });
         });
 
         grabber.addEventListener( "change", function( evt ) {

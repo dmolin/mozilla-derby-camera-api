@@ -68,7 +68,7 @@
 
             position: absolute;
             width: 100%;
-            height: 60px;
+            no_height: 60px;
         }
 
 
@@ -114,40 +114,14 @@
             cursor: pointer;
         }
 
-        /*
-        .input .fake {
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 1;
-        }
-
-        .input .fake input {
-            border-radius: 6px;
-            border: 1px solid #666;
-        }
-
-        .input .fake a {
-            display: inline-block;
-            text-decoration: none;
-            text-transform: uppercase;
-        }
-        */
         .css3button,
-        .result .options a {
+        .options a {
             font-family: Arial;
             font-size: 0.5em;
             color: #ffffff;
             padding: 5px 10px;
-            background: -moz-linear-gradient(
-                top,
-                #f0f0f0 0%,
-                #059e54 40%,
-                #03914a 50%,
-                #023d1f 75%,
-                #004221);
             border-radius: 6px;
-            border: 2px solid #171717;
+            border: 2px solid #202020;
         }
 
 
@@ -173,17 +147,16 @@
             display: none;
         }
 
-        .result .options {
+        .options {
             height: 40px;
             line-height: 40px;
             text-align: center;
             color: white;
             background: #111;
-            margin: 0 0 10px;
             display: none;
         }
 
-        .result .options a {
+        .options a {
             color: white;
             text-decoration: none;
         }
@@ -201,11 +174,17 @@
             margin: 10px;
             padding: 0;
             list-style-type: none;
+            text-align: center;
         }
 
         #filters ul > li {
             position: relative;
             display: inline-block;
+            margin-right: 1em;
+        }
+
+        #filters ul > li:last-child {
+            margin-right: 0;
         }
 
         .filter {
@@ -226,6 +205,7 @@
         .filter span.name {
             position: absolute;
             bottom: -2em;
+            left: 0;
             color: #eee;
             width: 100%;
             text-align: center;
@@ -239,6 +219,22 @@
         }
         .saveme:active {
         }
+
+        .spinner {
+            display: block;
+            margin: 0 auto;
+            width: 300px;
+            height: 31px;
+            text-align: center;
+            margin: 0 auto;
+            position: absolute;
+            top: 3em;
+            left: 50%;
+            margin-left: -150px;
+            z-index: 1000;
+            font-family: 'Anton', sans-serif;
+            color: #eee;
+        }
         </style>
     </head>
 
@@ -246,6 +242,11 @@
 
         <header>
             <h1>Camera API Demo</h1>
+            <div class='options'>
+                <a href="#">take another shot!</a>
+                <a href="#">restore picture</a>
+                <a href="#" class='saveme'>save picture</a>
+            </div>
         </header>
 
         <div id='container' >
@@ -262,11 +263,6 @@
                 </div>
             </div>
             <div class='result' >
-                <div class='options'>
-                    <a href="#">take another shot!</a>
-                    <a href="#">restore picture</a>
-                    <a href="#" class='saveme'>save picture</a>
-                </div>
                 <canvas id="picture2" ></canvas>
             </div>
         </div>
@@ -281,5 +277,6 @@
         <script src="js/utils.js" ></script>
         <script src="js/homepage.js" ></script>
         <script src="js/filters.js" ></script>
+        <script src="js/spinner.js" ></script>
         <script src="js/filters/bw.js" ></script>
-        <script src="js/filters/mosaic.js" ></script>
+        <script src="js/filters/pixelated.js" ></script>

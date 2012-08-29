@@ -20,12 +20,12 @@ camerapi.Filters = {
 
             context = ctx;
             //activate the panel and show the available filters
-            el.css('bottom', '-20%' );
-            el.height( '20%' );
+            el.css('bottom', '-140px' );
+            el.height( '140px' );
             el.animate( {bottom: '0' } );
 
             //alter parent height
-            $(parent).css( 'bottom', '20%' );
+            $(parent).css( 'bottom', '140px' );
 
             //show filters
             var filter, ulEl;
@@ -36,13 +36,15 @@ camerapi.Filters = {
                 filter = $( tash.util.template( templates.filter, {name: filters[i].name, id: filters[i].id } ) );
                 ulEl.append( filter );
 
-                $('a', filter ).click( (function( filt ){
+                $('a', filter ).click( (function( filt, cont ){
                     return function() {
-                        camerapi.activity.start.publish( context.canvas );
-                        filt.filter( context );
-                        camerapi.activity.stop.publish( context.canvas );
+                        camerapi.activity.start.publish( [filt.name, cont.canvas] );
+                        setTimeout( function() {
+                            filt.filter( cont );
+                            camerapi.activity.stop.publish( [filt.name, cont.canvas] );
+                        }, 300 );
                     }
-                }(filters[i])) );
+                }(filters[i], context) ) );
 
             }
             el.append( ulEl );
