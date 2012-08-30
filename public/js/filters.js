@@ -7,6 +7,7 @@ tash.events.require( 'camerapi.filters.ready' );
 tash.events.require( 'camerapi.filters.visible' );
 tash.events.require( 'camerapi.activity.start');
 tash.events.require( 'camerapi.activity.stop');
+tash.events.require( 'camerapi.reset');
 
 camerapi.Filters = {
     create: function( selector, parent ) {
@@ -19,6 +20,7 @@ camerapi.Filters = {
         function imageReady( ctx ) {
 
             context = ctx;
+
             //activate the panel and show the available filters
             el.css('bottom', '-140px' );
             el.height( '140px' );
@@ -43,11 +45,15 @@ camerapi.Filters = {
                             filt.filter( cont );
                             camerapi.activity.stop.publish( [filt.name, cont.canvas] );
                         }, 300 );
-                    }
-                }(filters[i], context) ) );
-
+                    };
+                }( filters[i], context ) ) );
             }
             el.append( ulEl );
+        }
+
+        function onReset() {
+            //el.animate( {bottom: '-140px' } );
+            el.css( 'bottom', '-140px' );
         }
 
         self.addFilter = function addFilter( filter ) {
@@ -65,6 +71,7 @@ camerapi.Filters = {
         //listen for events
         camerapi.grabbed.subscribe( imageReady );
         camerapi.filters.ready.publish( self );
+        camerapi.reset.subscribe( onReset );
 
         return self;
     }

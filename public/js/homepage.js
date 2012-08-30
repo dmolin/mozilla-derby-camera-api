@@ -4,6 +4,7 @@ tash.namespace( "camerapi" );
 tash.namespace( 'camerapi.pages' );
 
 tash.events.require( 'camerapi.grabbed');
+tash.events.require( 'camerapi.reset');
 
 camerapi.pages.homepage = {
     init: function() {
@@ -13,7 +14,8 @@ camerapi.pages.homepage = {
             canvas = document.querySelector( '#picture2' ),
             ctx = canvas.getContext( "2d" ),
             imageContainerEl = $( '#container .result' ),
-            filters;
+            filters,
+            original;
 
         cameraButtonEl.click( function() {
             $(grabber).trigger('click');
@@ -42,6 +44,10 @@ camerapi.pages.homepage = {
                     canvas.width = image.width;
                     canvas.height = image.height;
                     ctx.drawImage( image, 0, 0, image.width, image.height );
+
+                    //keep a copy of the original data for recovery
+                    original = ctx.getImageData( 0, 0, ctx.canvas.width, ctx.canvas.height );
+
                     //signal image ready event
                     camerapi.grabbed.publish( ctx );
                 });
@@ -57,11 +63,29 @@ camerapi.pages.homepage = {
 
         });
 
+        $('.another').click( function() {
+            $('.result').hide();
+            try {
+                ctx.clearRect( 0, 0, ctx.canvas.width, ctx.canvas.height );
+            } catch( ignored ){}
+            $('.options').slideUp( function() {
+                $('#container').css('top', $('header').height() + 'px');
+            });
+            camerapi.reset.publish( ctx );
+            $('#shot-view').show();
+        });
+
+        $('.restore').click( function() {
+            ctx.putImageData( original, 0, 0 );
+        });
+
         $('.saveme').click( function(){
-            var data, type = type || "png", mimetype = "image/" + type;
+            var data, type = "png", mimetype = "image/" + type;
+            var prev = window.location.href;
             data = ctx.canvas.toDataURL( mimetype );
             data = data.replace( mimetype, "image/octet-stream" );
             window.location.href = data;
+            window.location.href = prev;
         });
 
     }

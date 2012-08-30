@@ -68,7 +68,6 @@
 
             position: absolute;
             width: 100%;
-            no_height: 60px;
         }
 
 
@@ -105,10 +104,11 @@
 
         .camera-button button {
             background: url('images/camera.png') top left no-repeat;
+            background-size: 200px 201px;
             display: block;
             font-size: 0;
-            width: 293px;
-            height: 295px;
+            width: 200px;
+            height: 201px;
             border: none;
             margin: 0 auto;
             cursor: pointer;
@@ -117,7 +117,7 @@
         .css3button,
         .options a {
             font-family: Arial;
-            font-size: 0.5em;
+            font-size: 0.7em;
             color: #ffffff;
             padding: 5px 10px;
             border-radius: 6px;
@@ -224,7 +224,6 @@
             display: block;
             margin: 0 auto;
             width: 300px;
-            height: 31px;
             text-align: center;
             margin: 0 auto;
             position: absolute;
@@ -234,6 +233,12 @@
             z-index: 1000;
             font-family: 'Anton', sans-serif;
             color: #eee;
+
+            background-color: #222;
+            border: 3px solid #ddd;
+            border-radius: 6px;
+            line-height: 37px;
+            height: 41px;
         }
         </style>
     </head>
@@ -243,8 +248,8 @@
         <header>
             <h1>Camera API Demo</h1>
             <div class='options'>
-                <a href="#">take another shot!</a>
-                <a href="#">restore picture</a>
+                <a href="#" class='another'>take another shot!</a>
+                <a href="#" class='restore'>restore picture</a>
                 <a href="#" class='saveme'>save picture</a>
             </div>
         </header>
