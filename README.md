@@ -25,24 +25,24 @@ Each of the components is literally "dropped" into the system and starts interac
 The Filters panel is an example of that.
 When a picture is shot with the camera API and the picture data is available, an event it published:
 
-`
+```javascript
 		//signal image ready event
 		camerapi.grabbed.publish( ctx );
-`
+```
 
 That event signals to any other interested component in the system that an image has been made available.
 The Filter panel (public/filters.js) is subscribed to that (and others) event and reacts accordingly, popping up from the bottom of the screen and letting the user apply filters to the grabbed image:
 
-`
+```javascript
         //listen for events
         camerapi.grabbed.subscribe( imageReady );
         camerapi.filters.ready.publish( self );
         camerapi.reset.subscribe( onReset );
-`
+```
 
 Each provided filter is a small indipendent widget that registers itself in the system when the Filters panel publish its "ready" event:
 
-`
+```javascript
 camerapi.filters.bw = {
 	id: 'bw',
 	name: "Black & White",
@@ -55,7 +55,7 @@ camerapi.filters.bw = {
 camerapi.filters.ready.subscribe( function( filters ) {
 	filters.addFilter( camerapi.filters.bw );
 });
-`
+```
 
 Adding new filters is just a matter of adding new files to the "filters" folder.
 
@@ -68,7 +68,7 @@ Available with [Tash!](https://github.com/dmolin/tash)) is a Microtemplating fra
 
 This simple function (in less than 7 lines of code) allow us to easily compose small templates:
 
-`
+```javascript
 var templates = {
     filter: [
         "<li>",
@@ -84,4 +84,4 @@ var templates = {
 
 markup = tash.util.template( templates.filter, {name: filters[i].name, id: filters[i].id } );
 $('#filters').append($(markup));
-` 
+``` 
