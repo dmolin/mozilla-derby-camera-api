@@ -15,19 +15,20 @@ camerapi.Filters = {
             self = {},
             filters = [],
             i,
-            context;
+            context,
+            height = 160;
 
         function imageReady( ctx ) {
 
             context = ctx;
 
             //activate the panel and show the available filters
-            el.css('bottom', '-140px' );
-            el.height( '140px' );
+            el.css('bottom', '-' + height + 'px' );
+            el.height( height + 'px' );
             el.animate( {bottom: '0' } );
 
             //alter parent height
-            $(parent).css( 'bottom', '140px' );
+            $(parent).css( 'bottom', height + 'px' );
 
             //show filters
             var filter, ulEl;
@@ -53,7 +54,7 @@ camerapi.Filters = {
 
         function onReset() {
             //el.animate( {bottom: '-140px' } );
-            el.css( 'bottom', '-140px' );
+            el.css( 'bottom', '-' + height + 'px' );
         }
 
         self.addFilter = function addFilter( filter ) {
